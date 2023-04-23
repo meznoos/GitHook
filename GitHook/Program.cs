@@ -24,7 +24,7 @@ class Program
             }
             if (!HttpListener.IsSupported)
             {
-                Console.WriteLine("HttpListener not supported");
+                Console.WriteLine("HttpListener not supported\n usage: ./GitHook /path/to/your/git/repos ");
                 return;
             }
 
