@@ -14,3 +14,20 @@
    ```
 
 After that, when you push your code to github, your server will auto pull the code.
+
+You can add it to systemd:
+
+```bash
+cat > /etc/systemd/system/YouGithookName.service  <<EOF
+[Unit]
+Description=githook
+[Service]
+User=root
+Group=root
+ExecStart=/usr/local/bin/GitHook /path/to/you/code
+Restart=always
+RestartSec=2
+[Install]
+WantedBy=multi-user.target
+EOF
+```
