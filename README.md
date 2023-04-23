@@ -18,7 +18,7 @@ After that, when you push your code to github, your server will auto pull the co
 You can add it to systemd:
 
 ```bash
-cat > /etc/systemd/system/YouGithookName.service  <<EOF
+cat > /etc/systemd/system/YourGithookName.service  <<EOF
 [Unit]
 Description=githook
 [Service]
