@@ -22,6 +22,8 @@ cat > /etc/systemd/system/YourGithookName.service  <<EOF
 [Unit]
 Description=githook
 [Service]
+Environment="GPG_TTY=$(tty)"
+Environment="GCM_CREDENTIAL_STORE=gpg"
 User=root
 Group=root
 ExecStart=/usr/local/bin/GitHook /path/to/you/code
