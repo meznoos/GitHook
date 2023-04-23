@@ -3,7 +3,7 @@
 1. download GitHook from release
 2. run gitkey.sh on your server
 3. get a token here https://github.com/settings/tokens?type=beta
-4. clone your code
+4. clone your code, select `2. Personal access token` , and paste the token
 5. run `./GitHook /path/to/you/code`
 6. create a github webhook in settings
     ```
