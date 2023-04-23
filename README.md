@@ -33,3 +33,10 @@ RestartSec=2
 WantedBy=multi-user.target
 EOF
 ```
+
+
+## FAQ
+
+* Do I need install dotnet?
+
+   No, the release file is binary, you can run it directly.
