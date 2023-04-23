@@ -1,4 +1,4 @@
-## This tool is used for auto pull your github repositories when you push new code on your server.
+## This tool is used for auto pull your github repositories when you push new.
 
 1. download GitHook from release
 2. run gitkey.sh on your server
