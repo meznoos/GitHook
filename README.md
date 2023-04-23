@@ -26,7 +26,7 @@ Environment="GPG_TTY=$(tty)"
 Environment="GCM_CREDENTIAL_STORE=gpg"
 User=root
 Group=root
-ExecStart=/usr/local/bin/GitHook /path/to/you/code
+ExecStart=/usr/local/bin/GitHook /path/to/your/code
 Restart=always
 RestartSec=2
 [Install]
