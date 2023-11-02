@@ -3,7 +3,7 @@
 1. download GitHook from release
 2. run gitkey.sh on your server
 3. get a token here https://github.com/settings/tokens?type=beta
-4. clone your code, password input `Personal access token` , and let git remember credentials `git config --local credential.helper store` , and let git remember credentials for each repo seperated `git config --global credential.useHttpPath true
+4. clone your code, password input `Personal access token` , and let git remember credentials `git config --local credential.helper store` , and let git remember credential for each repo seperated `git config --global credential.useHttpPath true
    `
 5. run `./GitHook /path/to/your/code`
 6. create a github webhook in settings
