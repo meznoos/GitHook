@@ -7,21 +7,16 @@
     <Nullable>enable</Nullable>
 
     <PublishAot>true</PublishAot>
-    <SelfContained>true</SelfContained>
-
     <InvariantGlobalization>true</InvariantGlobalization>
     <UseSystemResourceKeys>true</UseSystemResourceKeys>
     <IlcOptimizationPreference>Size</IlcOptimizationPreference>
     <IlcGenerateStackTraceData>false</IlcGenerateStackTraceData>
-<!--    <DebugType>None</DebugType>-->
-<!--    <DebugSymbols>false</DebugSymbols>-->
     <EnableUnsafeBinaryFormatterSerialization>false</EnableUnsafeBinaryFormatterSerialization>
     <EventSourceSupport>false</EventSourceSupport>
     <HttpActivityPropagationSupport>false</HttpActivityPropagationSupport>
     <MetadataUpdaterSupport>false</MetadataUpdaterSupport>
     <RootAllApplicationAssemblies>false</RootAllApplicationAssemblies>
     <IlcGenerateCompleteTypeMetadata>false</IlcGenerateCompleteTypeMetadata>
-    <!--        <IlcDisableReflection>true</IlcDisableReflection>-->
     <IlcFoldIdenticalMethodBodies>true</IlcFoldIdenticalMethodBodies>
     <StripSymbols>true</StripSymbols>
     <RuntimeIdentifier>linux-x64</RuntimeIdentifier>
