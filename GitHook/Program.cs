@@ -1,19 +1,16 @@
-﻿using System;
-using System.Diagnostics;
-using System.IO;
+﻿using System.Diagnostics;
 using System.Net;
 using System.Text.Json;
-using System.Threading.Tasks;
 using System.Web;
 
 namespace GitHook;
 
-class Program
+internal class Program
 {
     private static string repos;
     private static string port;
 
-    static async Task Main(string[] args)
+    private static async Task Main(string[] args)
     {
         if (args.Length > 0)
         {
@@ -24,6 +21,7 @@ class Program
                 Console.WriteLine("Not valid directory\n usage: ./GitHook /path/to/your/git/repos ");
                 Environment.Exit(1);
             }
+
             if (!HttpListener.IsSupported)
             {
                 Console.WriteLine("HttpListener not supported\n usage: ./GitHook /path/to/your/git/repos ");
@@ -44,12 +42,9 @@ class Program
                 ProcessRequest(context);
             }
         }
-        else
-        {
-            Console.WriteLine("No arguments were passed.");
-            Environment.Exit(1);
-        }
-       
+
+        Console.WriteLine("No arguments were passed.");
+        Environment.Exit(1);
     }
 
     private static async void ProcessRequest(HttpListenerContext context)
@@ -66,14 +61,11 @@ class Program
             {
                 var formData = HttpUtility.ParseQueryString(postData);
                 Console.WriteLine($"Form data received: {formData}");
-                foreach (string k in formData.AllKeys)
-                {
-                    Console.WriteLine($"{k}: {formData.Get(k)}");
-                }
+                foreach (var k in formData.AllKeys) Console.WriteLine($"{k}: {formData.Get(k)}");
             }
             else if (request.ContentType != null && request.ContentType.StartsWith("application/json"))
             {
-                JsonDocument jsonData = JsonDocument.Parse(postData);
+                var jsonData = JsonDocument.Parse(postData);
                 // var secret = jsonData.RootElement.GetProperty("secret").GetString();
                 ExecCmd($"cd {repos} && git reset --hard && git pull");
             }
@@ -93,14 +85,14 @@ class Program
                 RedirectStandardOutput = true,
                 RedirectStandardError = true,
                 UseShellExecute = false,
-                CreateNoWindow = true,
+                CreateNoWindow = true
             }
         };
 
         process.Start();
 
-        string output = process.StandardOutput.ReadToEnd();
-        string error = process.StandardError.ReadToEnd();
+        var output = process.StandardOutput.ReadToEnd();
+        var error = process.StandardError.ReadToEnd();
 
         process.WaitForExit();
 
