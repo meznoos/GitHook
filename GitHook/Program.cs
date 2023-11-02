@@ -11,12 +11,14 @@ namespace GitHook;
 class Program
 {
     private static string repos;
+    private static string port;
 
     static async Task Main(string[] args)
     {
         if (args.Length > 0)
         {
             repos = args[0];
+            port = args[1];
             if (!Directory.Exists(repos))
             {
                 Console.WriteLine("Not valid directory\n usage: ./GitHook /path/to/your/git/repos ");
@@ -30,11 +32,11 @@ class Program
 
             var listener = new HttpListener
             {
-                Prefixes = { "http://*:10822/" }
+                Prefixes = { $"http://*:{port}/" }
             };
 
             listener.Start();
-            Console.WriteLine("Listening for requests on http://*:10822/");
+            Console.WriteLine($"Listening for requests on http://*:{port}/");
 
             while (true)
             {
