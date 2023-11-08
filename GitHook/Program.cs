@@ -60,8 +60,8 @@ internal class Program
             if (request.ContentType != null && request.ContentType.StartsWith("application/x-www-form-urlencoded"))
             {
                 var formData = HttpUtility.ParseQueryString(postData);
-                Console.WriteLine($"Form data received: {formData}");
-                foreach (var k in formData.AllKeys) Console.WriteLine($"{k}: {formData.Get(k)}");
+                // Console.WriteLine($"Form data received: {formData}");
+                // foreach (var k in formData.AllKeys) Console.WriteLine($"{k}: {formData.Get(k)}");
             }
             else if (request.ContentType != null && request.ContentType.StartsWith("application/json"))
             {
