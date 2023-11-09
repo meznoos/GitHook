@@ -2,9 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 using System.Net;
-using System.Text.Json;
 using System.Threading.Tasks;
-using System.Web;
 
 namespace GitHook;
 
@@ -12,7 +10,7 @@ internal class Program
 {
     private static async Task Main(string[] args)
     {
-        if (args.Length ==2)
+        if (args.Length == 2)
         {
             var repos = args[0];
             var port = args[1];
@@ -47,7 +45,7 @@ internal class Program
     }
 }
 
-class ProcessRequest
+internal class ProcessRequest
 {
     private readonly HttpListenerContext _context;
     private readonly string _repos;
@@ -66,17 +64,17 @@ class ProcessRequest
         if (request.HttpMethod == "POST")
         {
             using var reader = new StreamReader(request.InputStream, request.ContentEncoding);
-            var postData = await reader.ReadToEndAsync();
+            // var postData = await reader.ReadToEndAsync();
 
             if (request.ContentType != null && request.ContentType.StartsWith("application/x-www-form-urlencoded"))
             {
-                var formData = HttpUtility.ParseQueryString(postData);
-                Console.WriteLine($"Form data received: {formData}");
-                foreach (var k in formData.AllKeys) Console.WriteLine($"{k}: {formData.Get(k)}");
+                // var formData = HttpUtility.ParseQueryString(postData);
+                // Console.WriteLine($"Form data received: {formData}");
+                // foreach (var k in formData.AllKeys) Console.WriteLine($"{k}: {formData.Get(k)}");
             }
             else if (request.ContentType != null && request.ContentType.StartsWith("application/json"))
             {
-                var jsonData = JsonDocument.Parse(postData);
+                // var jsonData = JsonDocument.Parse(postData);
                 // var secret = jsonData.RootElement.GetProperty("secret").GetString();
                 await ExecCmd($"cd {_repos} && git reset --hard && git pull");
             }
