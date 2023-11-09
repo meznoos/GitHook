@@ -7,15 +7,12 @@ namespace GitHook;
 
 internal class Program
 {
-    private static string repos;
-    private static string port;
-
     private static async Task Main(string[] args)
     {
         if (args.Length > 0)
         {
-            repos = args[0];
-            port = args[1];
+            var repos = args[0];
+            var port = args[1];
             if (!Directory.Exists(repos))
             {
                 Console.WriteLine("Not valid directory\n usage: ./GitHook /path/to/your/git/repos ");
@@ -39,18 +36,31 @@ internal class Program
             while (true)
             {
                 var context = await listener.GetContextAsync();
-                ProcessRequest(context);
+                var pr = new ProcessRequest(context, repos);
+                pr.StartProcess();
             }
         }
 
         Console.WriteLine("No arguments were passed.");
         Environment.Exit(1);
     }
+}
 
-    private static async void ProcessRequest(HttpListenerContext context)
+class ProcessRequest
+{
+    private readonly HttpListenerContext _context;
+    private readonly string _repos;
+
+    public ProcessRequest(HttpListenerContext context, string repos)
     {
-        var request = context.Request;
-        var response = context.Response;
+        _context = context;
+        _repos = repos;
+    }
+
+    public async Task StartProcess()
+    {
+        var request = _context.Request;
+        using var response = _context.Response;
 
         if (request.HttpMethod == "POST")
         {
@@ -60,21 +70,19 @@ internal class Program
             if (request.ContentType != null && request.ContentType.StartsWith("application/x-www-form-urlencoded"))
             {
                 var formData = HttpUtility.ParseQueryString(postData);
-                // Console.WriteLine($"Form data received: {formData}");
-                // foreach (var k in formData.AllKeys) Console.WriteLine($"{k}: {formData.Get(k)}");
+                Console.WriteLine($"Form data received: {formData}");
+                foreach (var k in formData.AllKeys) Console.WriteLine($"{k}: {formData.Get(k)}");
             }
             else if (request.ContentType != null && request.ContentType.StartsWith("application/json"))
             {
                 var jsonData = JsonDocument.Parse(postData);
                 // var secret = jsonData.RootElement.GetProperty("secret").GetString();
-                ExecCmd($"cd {repos} && git reset --hard && git pull");
+                await ExecCmd($"cd {_repos} && git reset --hard && git pull");
             }
-
-            response.Close();
         }
     }
 
-    private static void ExecCmd(string command)
+    private async Task ExecCmd(string command)
     {
         var process = new Process
         {
@@ -94,7 +102,7 @@ internal class Program
         var output = process.StandardOutput.ReadToEnd();
         var error = process.StandardError.ReadToEnd();
 
-        process.WaitForExit();
+        await process.WaitForExitAsync();
 
         Console.WriteLine("Command output:");
         Console.WriteLine(output);
