@@ -1,6 +1,9 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
+using System.IO;
 using System.Net;
 using System.Text.Json;
+using System.Threading.Tasks;
 using System.Web;
 
 namespace GitHook;
@@ -9,7 +12,7 @@ internal class Program
 {
     private static async Task Main(string[] args)
     {
-        if (args.Length > 0)
+        if (args.Length ==2)
         {
             var repos = args[0];
             var port = args[1];
@@ -39,7 +42,7 @@ internal class Program
             }
         }
 
-        Console.WriteLine("No arguments were passed.");
+        Console.WriteLine("Usage: ./GitHook /path/to/your/git/repos port");
         Environment.Exit(1);
     }
 }
