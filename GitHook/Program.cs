@@ -18,13 +18,13 @@ internal class Program
             var port = args[1];
             if (!Directory.Exists(repos))
             {
-                Console.WriteLine("Not valid directory\n usage: ./GitHook /path/to/your/git/repos port");
+                Console.WriteLine("Not valid directory\n usage: GitHook /path/to/your/git/repos port");
                 Environment.Exit(1);
             }
 
             if (!HttpListener.IsSupported)
             {
-                Console.WriteLine("HttpListener not supported\n usage: ./GitHook /path/to/your/git/repos port");
+                Console.WriteLine("HttpListener not supported\n usage: GitHook /path/to/your/git/repos port");
                 return;
             }
 
@@ -42,7 +42,7 @@ internal class Program
             }
         }
 
-        Console.WriteLine("Usage: ./GitHook /path/to/your/git/repos port");
+        Console.WriteLine("Usage: GitHook /path/to/your/git/repos port");
         Environment.Exit(1);
     }
 }
