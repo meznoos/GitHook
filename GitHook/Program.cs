@@ -25,10 +25,8 @@ internal class Program
                 return;
             }
 
-            var listener = new HttpListener
-            {
-                Prefixes = { $"http://*:{port}/" }
-            };
+            using var listener = new HttpListener();
+            listener.Prefixes.Add($"http://*:{port}/");
 
             listener.Start();
             Console.WriteLine($"Listening for requests on http://*:{port}/");
@@ -37,7 +35,7 @@ internal class Program
             {
                 var context = await listener.GetContextAsync();
                 var pr = new ProcessRequest(context, repos);
-                pr.StartProcess();
+                await pr.StartProcess();
             }
         }
 
